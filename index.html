@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Understand common EVM token calldata in plain English. An offline, open-source decoder by Shelby. No wallet connection or tracking.">
+  <meta name="theme-color" content="#101514">
+  <title>Calldata Lens — Read the request.</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23c5f277'/%3E%3Ccircle cx='29' cy='28' r='14' fill='none' stroke='%23101514' stroke-width='5'/%3E%3Cpath d='m40 40 12 12' stroke='%23101514' stroke-width='5'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+  <script src="decoder.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#workspace">Skip to decoder</a>
+  <div class="shell">
+    <header><a class="brand" href="./"><span class="mark" aria-hidden="true">◉</span> calldata<span>lens</span></a><nav aria-label="Main"><a href="#how">How it works</a><a href="https://github.com/shelbygrayman/calldata-lens">Source ↗</a><span class="local"><i></i> Runs locally</span></nav></header>
+    <main>
+      <section class="hero">
+        <div><p class="eyebrow">A SMALL TOOL FOR A CLEARER WEB3</p><h1>Read the request.<br><span>Before you sign.</span></h1><p class="intro">Turn common token calldata into something you can actually read. Understand the addresses, amounts and permissions in a transaction request.</p></div>
+        <aside class="hero-note"><span class="note-icon" aria-hidden="true">↳</span><p>Your data stays in this tab.</p><span>No wallet connection.<br>No RPC calls. No tracking.</span></aside>
+      </section>
+      <section id="workspace" class="workspace" aria-label="Calldata decoder">
+        <div class="input-panel">
+          <div class="section-title"><h2><span>01</span> The request</h2><span class="tag">EVM CALLDATA</span></div>
+          <form id="decode-form">
+            <label for="calldata">Transaction data</label>
+            <p class="hint" id="data-hint">Copy the hex data field from a transaction request or explorer.</p>
+            <textarea id="calldata" spellcheck="false" autocapitalize="off" autocomplete="off" aria-describedby="data-hint" placeholder="0x095ea7b3…" maxlength="65538" required></textarea>
+            <div class="input-meta"><span id="byte-count">0 bytes</span><button type="button" class="text-button" id="clear">Clear</button></div>
+            <div class="options"><div><label for="standard">Interpret amount as</label><select id="standard"><option value="unknown">Unknown standard</option><option value="erc20">ERC-20 amount</option><option value="erc721">ERC-721 token ID</option></select></div><div><label for="decimals">Token decimals</label><input id="decimals" type="number" min="0" max="255" step="1" placeholder="e.g. 6" disabled></div></div>
+            <p class="hint">The standard and decimals are your inputs, not verified token metadata.</p>
+            <button type="submit" class="primary">Decode request <span aria-hidden="true">↗</span></button>
+            <p id="error" role="alert" class="error" hidden></p>
+          </form>
+          <div class="examples"><p class="eyebrow">OR EXPLORE AN EXAMPLE</p><div><button data-example="allowance">Unlimited approval</button><button data-example="transfer">Token transfer</button><button data-example="operator">NFT operator</button><button data-example="revoke">Revoke operator</button><button data-example="nft">NFT transfer</button></div><p class="hint">Synthetic examples. Addresses are placeholders.</p></div>
+        </div>
+        <div class="output-panel" aria-live="polite" aria-atomic="true">
+          <div class="section-title"><h2><span>02</span> In plain English</h2><span id="result-tag" class="tag">READY WHEN YOU ARE</span></div>
+          <div id="empty"><div class="lens-art" aria-hidden="true"><span>0x</span></div><h3>Hex in. Clarity out.</h3><p>Paste a request on the left, or try an example.<br>We’ll unpack what the bytes are asking for.</p><div class="supported"><span>Approvals</span><span>Transfers</span><span>NFT operators</span></div></div>
+          <div id="result" hidden>
+            <p id="signature" class="signature"></p><h3 id="headline"></h3><p id="explanation"></p>
+            <dl id="fields"></dl>
+            <div id="amount-box" class="amount-box" hidden><span>Amount with your decimals</span><strong id="formatted"></strong><small id="amount-note"></small></div>
+            <div class="review"><h4>Keep in mind</h4><ul id="warnings"></ul></div>
+            <details><summary>Inspect the ABI words</summary><div id="words"></div></details>
+            <button id="export" class="secondary" type="button">Download decoded JSON ↓</button>
+          </div>
+          <p class="boundary">A decoder, not a simulation or safety verdict. It cannot verify who controls an address or whether a transaction will succeed.</p>
+        </div>
+      </section>
+      <section id="how" class="how"><div><p class="eyebrow">UNDER THE LENS</p><h2>Small scope.<br>Explicit answers.</h2></div><article><span>01 / MATCH</span><h3>Recognize the selector</h3><p>The first four bytes are matched against five common token function signatures. Unknown selectors stay unknown.</p></article><article><span>02 / UNPACK</span><h3>Read the arguments</h3><p>Addresses, exact integers and booleans are decoded locally. Malformed or unexpected data is rejected.</p></article><article><span>03 / CONTEXT</span><h3>Keep the unknowns visible</h3><p>A selector does not prove a contract’s behavior. Shared ERC-20 / ERC-721 signatures are flagged explicitly.</p></article></section>
+    </main>
+    <footer><span>Built by <a href="https://github.com/shelbygrayman">Shelby</a> · Open source, MIT</span><a href="https://github.com/shelbygrayman/calldata-lens/issues">Ideas & feedback ↗</a><span>Less blind signing. More understanding.</span></footer>
+  </div>
+</body>
+</html>
