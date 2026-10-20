@@ -6,6 +6,8 @@ A small, offline tool that turns common EVM token calldata into plain-English ex
 
 **[Live demo](https://shelbygrayman.github.io/calldata-lens/)** · [Report an issue](https://github.com/shelbygrayman/calldata-lens/issues)
 
+New to token permissions? Follow the [approval reading guide](APPROVAL-GUIDE.md) with offline examples.
+
 ## Why this exists
 
 Wallet Lens answers “what does this address hold?” Calldata Lens explores a different question: “what is this request asking the contract to do?”
