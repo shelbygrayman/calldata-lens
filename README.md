@@ -16,7 +16,7 @@ The project takes product inspiration from [Rabby](https://github.com/RabbyHub/R
 
 ## Features
 
-- Five common function signatures, decoded locally.
+- Six common function signatures, decoded locally.
 - Plain-English explanations of approvals, transfers and collection-wide operators.
 - Explicit ERC-20 / ERC-721 ambiguity for shared signatures.
 - Maximum uint256 approval and zero-address notices.
@@ -36,6 +36,7 @@ The project takes product inspiration from [Rabby](https://github.com/RabbyHub/R
 | `0x23b872dd` | `transferFrom(address,address,uint256)` | ERC-20 amount or ERC-721 token ID |
 | `0xa22cb465` | `setApprovalForAll(address,bool)` | ERC-721 / ERC-1155 operator permission |
 | `0x42842e0e` | `safeTransferFrom(address,address,uint256)` | ERC-721 transfer, three-argument overload |
+| `0xb88d4fde` | `safeTransferFrom(address,address,uint256,bytes)` | ERC-721 transfer with raw receiver data |
 
 ## Try it
 
@@ -52,7 +53,7 @@ This is a static decoder, **not a transaction simulator, approval scanner, contr
 
 A selector match does not prove that a contract implements the named function. Selector collisions, proxies and custom implementations exist. Calldata alone cannot identify the chain, destination contract, transaction sender/value, current allowance, ownership or whether execution succeeds.
 
-Unknown selectors remain unknown. Dynamic arguments, multicalls, permit signatures and the four-argument ERC-721 `safeTransferFrom` overload are not supported. Extra bytes are deliberately rejected instead of silently ignored. Address output is lowercase; it does not validate checksum casing.
+Unknown selectors remain unknown. The four-argument ERC-721 `safeTransferFrom` overload supports canonical dynamic bytes: offset 128, exact length and zero padding. Receiver data remains opaque. Other dynamic arguments, multicalls and permit signatures are not supported. Extra bytes are deliberately rejected instead of silently ignored. Address output is lowercase; it does not validate checksum casing.
 
 “Unlimited approval” refers to maximum uint256 under standard ERC-20 semantics. The same selector also exists in ERC-721, where the number is a token ID. A zero amount in ERC-721 can be token ID 0, not necessarily a revocation.
 
@@ -83,7 +84,7 @@ ABI behavior is based on the [Solidity ABI specification](https://docs.solidityl
 
 ## Contribute
 
-Useful next steps: dynamic-argument decoding, additional test fixtures and clearer explanations for newcomers. Open an issue with a synthetic input, expected output and actual output. Never include keys, private transaction data or credentials.
+Useful next steps: broader method coverage, additional test fixtures and clearer explanations for newcomers. Open an issue with a synthetic input, expected output and actual output. Never include keys, private transaction data or credentials.
 
 For new selectors, include a primary specification link, malformed-input tests and an explicit explanation of ambiguity. Keep the decoder independent of the UI and avoid runtime dependencies.
 

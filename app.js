@@ -41,7 +41,7 @@ function render() {
     $('warnings').replaceChildren();
     const warnings = [...result.warnings];
     if (standard === 'erc721' && result.selector === '0xa9059cbb') warnings.push('transfer(address,uint256) is an ERC-20 signature; ERC-721 interpretation does not apply to this supported method.');
-    if (standard === 'erc20' && (result.selector === '0xa22cb465' || result.selector === '0x42842e0e')) warnings.push('This supported method is an NFT method; the ERC-20 amount interpretation is not applied.');
+    if (standard === 'erc20' && ['0xa22cb465', '0x42842e0e', '0xb88d4fde'].includes(result.selector)) warnings.push('This supported method is an NFT method; the ERC-20 amount interpretation is not applied.');
     current.warnings = warnings;
     for (const warning of warnings) {
       const li = document.createElement('li'); li.textContent = warning; $('warnings').append(li);
@@ -49,9 +49,14 @@ function render() {
     $('words').replaceChildren();
     for (const field of result.fields) {
       const p = document.createElement('p'), code = document.createElement('code');
-      p.textContent = `Word ${field.index + 1} · ${field.type}`;
+      p.textContent = `Word ${field.index + 1} · ${field.type === 'bytes' ? 'offset to receiver data' : field.type}`;
       code.textContent = '0x' + field.word;
       p.append(code); $('words').append(p);
+      if (field.type === 'bytes') {
+        const tail = document.createElement('p');
+        tail.textContent = `Receiver data · ${(field.value.length - 2) / 2} bytes · ${field.value}`;
+        $('words').append(tail);
+      }
     }
   } catch (error) {
     $('error').textContent = error.message;

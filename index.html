@@ -33,7 +33,7 @@
             <button type="submit" class="primary">Decode request <span aria-hidden="true">↗</span></button>
             <p id="error" role="alert" class="error" hidden></p>
           </form>
-          <div class="examples"><p class="eyebrow">OR EXPLORE AN EXAMPLE</p><div><button data-example="allowance">Unlimited approval</button><button data-example="transfer">Token transfer</button><button data-example="operator">NFT operator</button><button data-example="revoke">Revoke operator</button><button data-example="nft">NFT transfer</button></div><p class="hint">Synthetic examples. Addresses are placeholders.</p></div>
+          <div class="examples"><p class="eyebrow">OR EXPLORE AN EXAMPLE</p><div><button data-example="allowance">Unlimited approval</button><button data-example="transfer">Token transfer</button><button data-example="operator">NFT operator</button><button data-example="revoke">Revoke operator</button><button data-example="nft">NFT transfer</button><button data-example="nftData">NFT + receiver data</button></div><p class="hint">Synthetic examples. Addresses are placeholders.</p></div>
         </div>
         <div class="output-panel" aria-live="polite" aria-atomic="true">
           <div class="section-title"><h2><span>02</span> In plain English</h2><span id="result-tag" class="tag">READY WHEN YOU ARE</span></div>
@@ -49,7 +49,7 @@
           <p class="boundary">A decoder, not a simulation or safety verdict. It cannot verify who controls an address or whether a transaction will succeed.</p>
         </div>
       </section>
-      <section id="how" class="how"><div><p class="eyebrow">UNDER THE LENS</p><h2>Small scope.<br>Explicit answers.</h2></div><article><span>01 / MATCH</span><h3>Recognize the selector</h3><p>The first four bytes are matched against five common token function signatures. Unknown selectors stay unknown.</p></article><article><span>02 / UNPACK</span><h3>Read the arguments</h3><p>Addresses, exact integers and booleans are decoded locally. Malformed or unexpected data is rejected.</p></article><article><span>03 / CONTEXT</span><h3>Keep the unknowns visible</h3><p>A selector does not prove a contract’s behavior. Shared ERC-20 / ERC-721 signatures are flagged explicitly.</p></article></section>
+      <section id="how" class="how"><div><p class="eyebrow">UNDER THE LENS</p><h2>Small scope.<br>Explicit answers.</h2></div><article><span>01 / MATCH</span><h3>Recognize the selector</h3><p>The first four bytes are matched against six common token function signatures. Unknown selectors stay unknown.</p></article><article><span>02 / UNPACK</span><h3>Read the arguments</h3><p>Addresses, exact integers and booleans are decoded locally. Malformed or unexpected data is rejected.</p></article><article><span>03 / CONTEXT</span><h3>Keep the unknowns visible</h3><p>A selector does not prove a contract’s behavior. Shared ERC-20 / ERC-721 signatures are flagged explicitly.</p></article></section>
     </main>
     <footer><span>Built by <a href="https://github.com/shelbygrayman">Shelby</a> · Open source, MIT</span><a href="https://github.com/shelbygrayman/calldata-lens/issues">Ideas & feedback ↗</a><span>Less blind signing. More understanding.</span></footer>
   </div>
