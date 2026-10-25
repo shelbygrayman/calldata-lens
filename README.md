@@ -1,5 +1,7 @@
 # Calldata Lens
 
+[Validation and benchmarks](BENCHMARKS.md) · [Changelog](CHANGELOG.md)
+
 **Read the request. Before you sign.**
 
 A small, offline tool that turns common EVM token calldata into plain-English explanations. Paste a transaction's data field to inspect addresses, exact amounts, approval values and ABI words.
